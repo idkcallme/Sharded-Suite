@@ -115,7 +115,7 @@ class GGUFShardTester:
             
             # Run forge shard command
             result = subprocess.run([
-                sys.executable, "forge/shard.py", "shard", str(test_file)
+                sys.executable, "forge/model_sharding_tool.py", "shard", str(test_file)
             ], capture_output=True, text=True, cwd=".")
             
             if result.returncode != 0:
@@ -282,7 +282,7 @@ class GGUFShardTester:
             
             # Create delta
             result = subprocess.run([
-                sys.executable, "trainer/delta_trainer.py",
+                sys.executable, "trainer/incremental_model_updater.py",
                 "--base", str(base_file),
                 "--target", str(modified_file),
                 "--output", str(self.test_data_dir / "test_delta")
@@ -343,7 +343,7 @@ class GGUFShardTester:
             
             # Test should handle gracefully
             result = subprocess.run([
-                sys.executable, "forge/shard.py", "shard", str(corrupted_file)
+                sys.executable, "forge/model_sharding_tool.py", "shard", str(corrupted_file)
             ], capture_output=True, text=True, cwd=".")
             
             # Should either succeed or fail gracefully (not crash)
@@ -372,7 +372,7 @@ class GGUFShardTester:
             
             # Should handle gracefully
             result = subprocess.run([
-                sys.executable, "forge/shard.py", "shard", str(truncated_file)
+                sys.executable, "forge/model_sharding_tool.py", "shard", str(truncated_file)
             ], capture_output=True, text=True, cwd=".")
             
             duration = time.time() - start_time
@@ -398,7 +398,7 @@ class GGUFShardTester:
             success_count = 0
             for large_file in large_files:
                 result = subprocess.run([
-                    sys.executable, "forge/shard.py", "shard", str(large_file)
+                    sys.executable, "forge/model_sharding_tool.py", "shard", str(large_file)
                 ], capture_output=True, text=True, cwd=".")
                 
                 if result.returncode == 0:
@@ -430,7 +430,7 @@ class GGUFShardTester:
             # Process concurrently
             def process_file(file_path):
                 result = subprocess.run([
-                    sys.executable, "forge/shard.py", "shard", str(file_path)
+                    sys.executable, "forge/model_sharding_tool.py", "shard", str(file_path)
                 ], capture_output=True, text=True, cwd=".")
                 return result.returncode == 0
             
@@ -484,7 +484,7 @@ class GGUFShardTester:
             
             process_start = time.time()
             result = subprocess.run([
-                sys.executable, "forge/shard.py", "shard", str(large_file)
+                sys.executable, "forge/model_sharding_tool.py", "shard", str(large_file)
             ], capture_output=True, text=True, cwd=".")
             process_time = time.time() - process_start
             
@@ -528,7 +528,7 @@ class GGUFShardTester:
             # Measure delta creation time
             process_start = time.time()
             result = subprocess.run([
-                sys.executable, "trainer/delta_trainer.py",
+                sys.executable, "trainer/incremental_model_updater.py",
                 "--base", str(base_file),
                 "--target", str(modified_file),
                 "--output", str(self.test_data_dir / "perf_delta")

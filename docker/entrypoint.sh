@@ -84,12 +84,12 @@ main() {
         shard)
             shift
             echo "🔨 Starting shard creation..."
-            python3 /app/forge/shard.py shard "$@"
+            python3 /app/forge/model_sharding_tool.py shard "$@"
             ;;
         delta)
             shift
             echo "🔄 Starting delta creation..."
-            python3 /app/trainer/delta_trainer.py "$@"
+            python3 /app/trainer/incremental_model_updater.py "$@"
             ;;
         test)
             shift
