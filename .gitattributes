@@ -1,0 +1,2 @@
+# Disable LFS temporarily to avoid size issues
+# *.gguf filter=lfs diff=lfs merge=lfs -text
