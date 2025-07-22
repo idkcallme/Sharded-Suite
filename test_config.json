@@ -1,0 +1,44 @@
+{
+  "test_config": {
+    "performance": {
+      "regression_threshold": 0.15,
+      "benchmark_iterations": 3,
+      "stress_test_iterations": 5,
+      "memory_monitoring_interval": 0.1
+    },
+    "file_handling": {
+      "cleanup_patterns": [
+        "core.gguf",
+        "core.sgmap",
+        "*_modified.gguf",
+        "*_test_delta.delta",
+        "*_test_delta.sgmap"
+      ],
+      "excluded_prefixes": ["core", "temp_", "test_"]
+    },
+    "logging": {
+      "level": "INFO",
+      "file": "test_execution.log",
+      "max_log_size": "10MB",
+      "backup_count": 5
+    },
+    "validation": {
+      "required_map_fields": [
+        "version",
+        "total_shards", 
+        "page_size",
+        "shards",
+        "atlas"
+      ],
+      "min_throughput_mb_s": 10.0,
+      "max_memory_usage_mb": 8192
+    }
+  },
+  "environment": {
+    "python_executable": "python",
+    "tools": {
+      "sharding_tool": "forge/model_sharding_tool.py",
+      "delta_tool": "trainer/incremental_model_updater.py"
+    }
+  }
+}
