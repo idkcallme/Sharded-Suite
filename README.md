@@ -169,6 +169,30 @@ python forge/model_sharding_tool.py shard llama-70b.gguf
 # - core.sgmap (shard map)
 ```
 
+### 4. Testing and Validation
+
+GGUF-Shard includes a comprehensive testing infrastructure to ensure reliability and performance. See [TESTING.md](TESTING.md) for detailed documentation.
+
+#### Quick Test
+```bash
+# Run basic workflow test
+python test_real_model.py
+
+# Run enhanced test with performance monitoring
+python test_real_model_enhanced.py
+
+# Interactive test runner
+python test_runner.py --interactive
+```
+
+#### Available Test Suites
+- **Basic**: Core functionality validation
+- **Enhanced**: Performance monitoring and regression detection
+- **Stress**: System stability under load
+- **Matrix**: Multi-model compatibility testing
+- **Benchmark**: Performance measurement and comparison
+- **Regression**: Performance degradation detection
+
 ## Future Research
 
 We are actively exploring:
